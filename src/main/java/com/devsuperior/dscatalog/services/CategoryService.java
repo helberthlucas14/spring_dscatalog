@@ -2,6 +2,7 @@ package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.dtos.CategoryDto;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,11 +41,15 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryDto update(CategoryDto dto) {
-        Category entity = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        entity.setName(dto.getName());
-        entity = repository.save(entity);
-        return new CategoryDto(entity);
+    public CategoryDto update(Long id, CategoryDto dto) {
+        try {
+            Category entity = repository.getReferenceById(id);
+            entity.setName(dto.getName());
+            entity = repository.save(entity);
+            return new CategoryDto(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found" + id);
+        }
     }
 
     public void delete(Long id) {

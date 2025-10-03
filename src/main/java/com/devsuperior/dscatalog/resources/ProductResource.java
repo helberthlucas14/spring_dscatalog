@@ -33,7 +33,6 @@ public class ProductResource {
             @RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
             @RequestParam(value = "name", defaultValue = "") String name,
             Pageable pageable) {
-
         Page<ProductDto> list = service.findAll(categoryId, name.trim(), pageable);
         return ResponseEntity.ok().body(list);
     }
@@ -56,7 +55,7 @@ public class ProductResource {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductDto> findById(@PathVariable long id, @RequestBody ProductDto dto) {
-        dto = service.update(dto);
+        dto = service.update(id,dto);
         return ResponseEntity.ok().body(dto);
     }
 

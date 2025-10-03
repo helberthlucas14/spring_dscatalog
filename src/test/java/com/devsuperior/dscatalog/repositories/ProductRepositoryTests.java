@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.tests.Factory;
@@ -23,7 +22,7 @@ public class ProductRepositoryTests {
     private long countTotalProducts;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         exintingId = 1L;
         nonExintingId = 100L;
         countTotalProducts = 25L;
