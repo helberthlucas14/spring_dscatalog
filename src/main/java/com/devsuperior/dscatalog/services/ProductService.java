@@ -59,7 +59,6 @@ public class ProductService {
         return new ProductDto(entity, entity.getCategories());
     }
 
-    @Transactional
     public void delete(Long id) {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Entity not found");
